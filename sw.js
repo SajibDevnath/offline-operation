@@ -67,3 +67,19 @@ self.addEventListener('fetch', function(event) {
       })
     );
 });
+
+
+self.addEventListener('install', function(event) {
+  // this happens while the old version is still in control
+  event.waitUntil(
+    fetchStuffAndInitDatabases()
+  );
+});
+
+self.addEventListener('activate', function(event) {
+  // the old version is gone now, do what you couldn't
+  // do while it was still around
+  event.waitUntil(
+    schemaMigrationAndCleanup()
+  )
+});
