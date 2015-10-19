@@ -16,7 +16,7 @@ this.addEventListener('install', function (event) {
     // Service Worker will not install until the 
     // code inside waitUntil() successfully occur
     event.waitUntil(
-        // Caches.open() method to create a new cache called v1
+        
         caches.open('v1')
             .then(function (cache) {
                 return cache.addAll([
