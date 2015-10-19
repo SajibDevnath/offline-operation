@@ -24,7 +24,7 @@ this.addEventListener('install', function (event) {
                     '/serviceworker-cache-polyfill.js',
                     '/style.css',
                     '/sw.js'
-                )];
+                ]);
             });    
         ); 
 });
