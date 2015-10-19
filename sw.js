@@ -13,10 +13,7 @@ if ('serviceWorker' in navigator ) {
 
 // install and activate
 this.addEventListener('install', function (event) {
-    // Service Worker will not install until the 
-    // code inside waitUntil() successfully occur
     event.waitUntil(
-        
         caches.open('v1')
             .then(function (cache) {
                 return cache.addAll([
