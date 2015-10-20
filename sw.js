@@ -19,10 +19,10 @@ self.addEventListener('install', function (event) {
 -        // Caches.open() method to create a new cache called v1
         caches.open('v1').then(function (cache) {
                 return cache.addAll([
-                    '/index.html',
-                    '/serviceworker-cache-polyfill.js',
-                    '/style.css',
-                    '/sw.js'
+                    'index.html',
+                    'serviceworker-cache-polyfill.js',
+                    'style.css',
+                    'sw.js'
                 ]);
             })    
         ); 
