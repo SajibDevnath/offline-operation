@@ -24,6 +24,6 @@ this.addEventListener('install', function (event) {
                     '/style.css',
                     '/sw.js'
                 ]);
-            })   
+            })    
         ); 
 });
