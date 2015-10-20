@@ -34,5 +34,5 @@ this.addEventListener('install', function(event) {
 // returning the cache
 
 self.addEventListener('fetch', function(event) {
-  event.respondWith(new Response("Hello world!"));
+  event.respondWith(new Response("Hello Everyone!"));
 });
