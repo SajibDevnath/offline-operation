@@ -12,7 +12,7 @@ if ('serviceWorker' in navigator ) {
 }
 
 // install and activate
-this.addEventListener('install', function (event) {
+self.addEventListener('install', function (event) {
      // Service Worker will not install until the 
      // code inside waitUntil() successfully occur
      event.waitUntil(
@@ -29,15 +29,10 @@ this.addEventListener('install', function (event) {
 });
 
 // returning the cache
-this.addEventListener('fetch', function(event) {
+self.addEventListener('fetch', function(event) {
   event.respondWith(
-    caches.match(event.request).catch(function() {
-      return fetch(event.request).then(function(response) {
-        return caches.open('v1').then(function(cache) {
-          cache.put(event.request, response.clone());
-          return response;
-        });  
-      });
+    fetch(event.request).catch(function() {
+      return new Response("Request failed!");
     })
   );
 });
