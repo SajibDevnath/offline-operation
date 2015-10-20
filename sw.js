@@ -1,9 +1,16 @@
 // Register
 if ('serviceWorker' in navigator ) {
-    navigator.serviceWorker.register('sw.js')
+    navigator.serviceWorker.register('/offline-operation/sw.js', {scope: '/offline-operation/'})
         .then(function (reg) {
-            // success
-            console.log('Registration succeded. Scope is ' + reg.scope);
+            
+            if(reg.installing) {
+              console.log('Service worker installing');
+            } else if(reg.waiting) {
+              console.log('Service worker installed');
+            } else if(reg.active) {
+              console.log('Service worker active');
+            }
+            
         })
         .catch(function (err) {
             // failure
@@ -12,27 +19,28 @@ if ('serviceWorker' in navigator ) {
 }
 
 // install and activate
-self.addEventListener('install', function (event) {
-     // Service Worker will not install until the 
-     // code inside waitUntil() successfully occur
-     event.waitUntil(
--        // Caches.open() method to create a new cache called v1
-        caches.open('v1').then(function (cache) {
-                return cache.addAll([
-                    'index.html',
-                    'serviceworker-cache-polyfill.js',
-                    'style.css',
-                    'sw.js'
-                ]);
-            })    
-        ); 
+this.addEventListener('install', function(event) {
+  event.waitUntil(
+    caches.open('v1').then(function(cache) {
+      return cache.addAll([
+        '/offline-operation/',
+        '/offline-operation/index.html',
+        '/offline-operation/style.css'
+      ]);
+    })
+  );
 });
 
 // returning the cache
-self.addEventListener('fetch', function(event) {
-  event.respondWith(
-    fetch(event.request).catch(function() {
-      return new Response("Request Updated!");
-    })
-  );
+this.addEventListener('fetch', function(event) {
+  var response;
+  event.respondWith(caches.match(event.request).catch(function() {
+    return fetch(event.request);
+  }).then(function(r) {
+    response = r;
+    caches.open('v1').then(function(cache) {
+      cache.put(event.request, response);
+    });
+    return response.clone();
+  })
 });
