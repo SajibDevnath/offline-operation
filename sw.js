@@ -1,6 +1,6 @@
 // Register
 if ('serviceWorker' in navigator ) {
-    navigator.serviceWorker.register('/sw.js')
+    navigator.serviceWorker.register('sw.js')
         .then(function (reg) {
             // success
             console.log('Registration succeded. Scope is ' + reg.scope);
@@ -19,10 +19,10 @@ this.addEventListener('install', function (event) {
 -        // Caches.open() method to create a new cache called v1
         caches.open('v1').then(function (cache) {
                 return cache.addAll([
-                    '/index.html',
-                    '/serviceworker-cache-polyfill.js',
-                    '/style.css',
-                    '/sw.js'
+                    'index.html',
+                    'serviceworker-cache-polyfill.js',
+                    'style.css',
+                    'sw.js'
                 ]);
             })    
         ); 
